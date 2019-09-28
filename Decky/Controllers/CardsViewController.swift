@@ -7,14 +7,18 @@
 //
 
 import UIKit
+import RealmSwift
 
 class CardsViewController: UITableViewController {
     
-    var cardArray = ["Dark Magician", "Dark Magician Girl", "Dark Magician of Chaos"]
+    let realm = try! Realm()
+    
+    var cardArray: Results<Card>?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        load()
     }
 
 
@@ -22,12 +26,12 @@ class CardsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = cardArray[indexPath.row]
+        cell.textLabel?.text = cardArray?[indexPath.row].name ?? "No cards added"
         return cell
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cardArray.count
+        return cardArray?.count ?? 1
     }
     
     //MARK: - Tableview Delegate Methods
@@ -46,7 +50,7 @@ class CardsViewController: UITableViewController {
     
     //MARK: - Add cards
     
-    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) { //C = CREATE
         
         var textField = UITextField()
         
@@ -54,8 +58,10 @@ class CardsViewController: UITableViewController {
         
         let action = UIAlertAction(title: "Add card", style: .default) { (action) in
             
-            self.cardArray.append(textField.text!)
-            self.tableView.reloadData()
+            let newCard = Card()
+            newCard.name = textField.text!
+            self.save(card: newCard)
+            
             
         }
         
@@ -69,6 +75,27 @@ class CardsViewController: UITableViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    
+    //MARK: - Saving and Loading data
+    
+    func save(card: Card)
+    {
+        do{
+            try realm.write {
+                realm.add(card)
+            }
+        } catch{
+            print("Error saving card: \(error)")
+        }
+        
+        tableView.reloadData()
+    }
+    
+    func load()
+    {
+        cardArray = realm.objects(Card.self)
+        tableView.reloadData()
+    }
     
 }
 

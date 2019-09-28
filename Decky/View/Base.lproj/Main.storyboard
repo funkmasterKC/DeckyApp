@@ -9,6 +9,44 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Deck-->
+        <scene sceneID="BV0-Fm-AS5">
+            <objects>
+                <tableViewController id="Ctd-Qm-enp" customClass="DecksViewController" customModule="Decky" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="SIK-wF-NK9">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="ZQ0-rQ-Nyh">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZQ0-rQ-Nyh" id="EcK-gD-Aft">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Ctd-Qm-enp" id="2vB-Em-Xha"/>
+                            <outlet property="delegate" destination="Ctd-Qm-enp" id="hbe-9F-aKH"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Deck" id="mrC-aE-qt1">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="l71-SS-DaF">
+                            <connections>
+                                <action selector="addButtonPressed:" destination="Ctd-Qm-enp" id="MO2-QO-fOv"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="ecm-Hb-1ga" kind="push" id="PdK-fS-ibU"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nqj-Xq-fFf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1753" y="141"/>
+        </scene>
         <!--Cards-->
         <scene sceneID="34J-oB-tEy">
             <objects>
@@ -43,7 +81,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hns-nB-Tpc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1860" y="125.4872563718141"/>
+            <point key="canvasLocation" x="2591" y="141"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="9V2-SQ-ife">
@@ -60,7 +98,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="ecm-Hb-1ga" kind="relationship" relationship="rootViewController" id="qql-Zr-m3y"/>
+                        <segue destination="Ctd-Qm-enp" kind="relationship" relationship="rootViewController" id="ekX-Zd-77e"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gW6-a8-NSW" userLabel="First Responder" sceneMemberID="firstResponder"/>
