@@ -10,7 +10,7 @@ import UIKit
 
 class CardsViewController: UITableViewController {
     
-    let cardArray = ["Dark Magician", "Dark Magician Girl", "Dark Magician of Chaos"]
+    var cardArray = ["Dark Magician", "Dark Magician Girl", "Dark Magician of Chaos"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +42,33 @@ class CardsViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         
     }
+    
+    
+    //MARK: - Add cards
+    
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        
+        var textField = UITextField()
+        
+        let alert = UIAlertController(title: "Add a new card", message: "", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Add card", style: .default) { (action) in
+            
+            self.cardArray.append(textField.text!)
+            self.tableView.reloadData()
+            
+        }
+        
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Create a new card"
+            textField = alertTextField
+        }
+        
+        alert.addAction(action)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
     
 }
 
