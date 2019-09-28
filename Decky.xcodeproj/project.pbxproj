@@ -12,9 +12,12 @@
 		5FF0280E233FC63C00948C79 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FF0280C233FC63C00948C79 /* Main.storyboard */; };
 		5FF02810233FC63D00948C79 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5FF0280F233FC63D00948C79 /* Assets.xcassets */; };
 		5FF02813233FC63D00948C79 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FF02811233FC63D00948C79 /* LaunchScreen.storyboard */; };
+		9C9AD10725D386A9D92FC818 /* Pods_Decky.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C560E4208AC71FD3D53B3F8 /* Pods_Decky.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		38AD988E782256016AD89A50 /* Pods-Decky.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decky.release.xcconfig"; path = "Target Support Files/Pods-Decky/Pods-Decky.release.xcconfig"; sourceTree = "<group>"; };
+		4C560E4208AC71FD3D53B3F8 /* Pods_Decky.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Decky.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FF02805233FC63C00948C79 /* Decky.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Decky.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FF02808233FC63C00948C79 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5FF0280A233FC63C00948C79 /* CardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +25,7 @@
 		5FF0280F233FC63D00948C79 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5FF02812233FC63D00948C79 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5FF02814233FC63D00948C79 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B8C1B0966BBE632AD98A527D /* Pods-Decky.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decky.debug.xcconfig"; path = "Target Support Files/Pods-Decky/Pods-Decky.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +33,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C9AD10725D386A9D92FC818 /* Pods_Decky.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1BB202F76EE6E49DE6CB228C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B8C1B0966BBE632AD98A527D /* Pods-Decky.debug.xcconfig */,
+				38AD988E782256016AD89A50 /* Pods-Decky.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		5FF027FC233FC63C00948C79 = {
 			isa = PBXGroup;
 			children = (
 				5FF02807233FC63C00948C79 /* Decky */,
 				5FF02806233FC63C00948C79 /* Products */,
+				1BB202F76EE6E49DE6CB228C /* Pods */,
+				C568BE30F6BC97C68E1A8D56 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +81,14 @@
 			path = Decky;
 			sourceTree = "<group>";
 		};
+		C568BE30F6BC97C68E1A8D56 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4C560E4208AC71FD3D53B3F8 /* Pods_Decky.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +96,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5FF02817233FC63D00948C79 /* Build configuration list for PBXNativeTarget "Decky" */;
 			buildPhases = (
+				F1A02179AC2985A5828E0E55 /* [CP] Check Pods Manifest.lock */,
 				5FF02801233FC63C00948C79 /* Sources */,
 				5FF02802233FC63C00948C79 /* Frameworks */,
 				5FF02803233FC63C00948C79 /* Resources */,
+				6135ECE007920ED6E6913593 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -129,6 +156,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6135ECE007920ED6E6913593 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Decky/Pods-Decky-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Decky/Pods-Decky-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Decky/Pods-Decky-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F1A02179AC2985A5828E0E55 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Decky-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5FF02801233FC63C00948C79 /* Sources */ = {
@@ -280,6 +349,7 @@
 		};
 		5FF02818233FC63D00948C79 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B8C1B0966BBE632AD98A527D /* Pods-Decky.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -297,6 +367,7 @@
 		};
 		5FF02819233FC63D00948C79 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 38AD988E782256016AD89A50 /* Pods-Decky.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
