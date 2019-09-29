@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
 class DecksViewController: SwipeTableViewController {
 
@@ -18,6 +19,9 @@ class DecksViewController: SwipeTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         load()
+        
+        tableView.separatorStyle = .none
+    
        
     }
 
@@ -27,6 +31,7 @@ class DecksViewController: SwipeTableViewController {
         
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         cell.textLabel?.text = deckArray?[indexPath.row].name ?? "No deck added"
+        cell.backgroundColor = UIColor(hexString: deckArray?[indexPath.row].color ?? "1D9BF6")
         return cell
     }
 
@@ -64,6 +69,7 @@ class DecksViewController: SwipeTableViewController {
             
             let newDeck = Deck()
             newDeck.name = textField.text!
+            newDeck.color = UIColor.randomFlat.hexValue()
             self.save(deck: newDeck)
             
         }
