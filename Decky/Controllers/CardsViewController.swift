@@ -24,7 +24,7 @@ class CardsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        //load()
+        
     }
 
 
@@ -80,10 +80,6 @@ class CardsViewController: UITableViewController {
         
         let action = UIAlertAction(title: "Add card", style: .default) { (action) in
             
-//            let newCard = Card()
-//            newCard.name = textField.text!
-//            self.save(card: newCard)
-            
             if let currentDeck = self.selectedDeck
             {
                 do{
@@ -111,20 +107,7 @@ class CardsViewController: UITableViewController {
     }
     
     
-    //MARK: - Saving and Loading data
-    
-//    func save(card: Card)
-//    {
-//        do{
-//            try realm.write {
-//                realm.add(card)
-//            }
-//        } catch{
-//            print("Error saving card: \(error)")
-//        }
-//
-//        tableView.reloadData()
-//    }
+    //MARK: - Loading data
     
     func load() // (R = READ)
     {
@@ -134,6 +117,8 @@ class CardsViewController: UITableViewController {
     }
     
 }
+
+//MARK: - Search Bar Methods
 
 extension CardsViewController: UISearchBarDelegate{
     

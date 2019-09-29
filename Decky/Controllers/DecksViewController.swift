@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import SwipeCellKit
 
 class DecksViewController: UITableViewController {
 
@@ -18,6 +19,7 @@ class DecksViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         load()
+        tableView.rowHeight = 80.0
        
     }
 
@@ -25,7 +27,8 @@ class DecksViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! SwipeTableViewCell
+        cell.delegate = self
         cell.textLabel?.text = deckArray?[indexPath.row].name ?? "No deck added"
         return cell
     }
@@ -99,4 +102,48 @@ class DecksViewController: UITableViewController {
         deckArray = realm.objects(Deck.self)
         tableView.reloadData()
     }
+}
+
+//MARK: - Swipe Tableview Methods
+
+extension DecksViewController: SwipeTableViewCellDelegate
+{
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        
+        guard orientation == .right else { return nil }
+        
+        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
+        
+            if let deckForDeletion = self.deckArray?[indexPath.row]
+            {
+                do{
+                    try self.realm.write {
+                        self.realm.delete(deckForDeletion)
+                    }
+                } catch {
+                    print("Error deleting deck: \(error)")
+                }
+                
+            }
+            
+        }
+        
+        deleteAction.image = UIImage(named: "trash")
+        
+        return [deleteAction]
+        
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
+        
+        var options = SwipeTableOptions()
+        options.expansionStyle = .destructive
+        options.transitionStyle = .border
+        return options
+        
+    }
+    
+    
+    
 }
