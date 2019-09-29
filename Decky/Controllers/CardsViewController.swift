@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class CardsViewController: UITableViewController {
+class CardsViewController: SwipeTableViewController {
     
     let realm = try! Realm()
     
@@ -31,7 +31,7 @@ class CardsViewController: UITableViewController {
     //MARK: - Tableview Datasource Methods
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
         if let card = cardArray?[indexPath.row]
         {
@@ -114,6 +114,23 @@ class CardsViewController: UITableViewController {
         
         cardArray = selectedDeck?.cards.sorted(byKeyPath: "name", ascending: true)
         tableView.reloadData()
+    }
+    
+    //MARK: - Deleting data
+    
+    override func updateModel(at indexPath: IndexPath) {
+        
+        if let cardForDeletion = self.cardArray?[indexPath.row]
+        {
+            do{
+                try self.realm.write {
+                    self.realm.delete(cardForDeletion)
+                }
+            } catch {
+                print("Error deleting card: \(error)")
+            }
+            
+        }
     }
     
 }

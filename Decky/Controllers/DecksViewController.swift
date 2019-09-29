@@ -18,7 +18,6 @@ class DecksViewController: SwipeTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         load()
-        tableView.rowHeight = 80.0
        
     }
 
@@ -80,7 +79,7 @@ class DecksViewController: SwipeTableViewController {
         
     }
     
-    //MARK: - Load and Save Decks
+    //MARK: - Load, save, and delete Decks
     
     func save(deck: Deck)
     {
