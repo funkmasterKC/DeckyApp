@@ -8,9 +8,8 @@
 
 import UIKit
 import RealmSwift
-import SwipeCellKit
 
-class DecksViewController: UITableViewController {
+class DecksViewController: SwipeTableViewController {
 
     let realm = try! Realm()
     
@@ -27,8 +26,7 @@ class DecksViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! SwipeTableViewCell
-        cell.delegate = self
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         cell.textLabel?.text = deckArray?[indexPath.row].name ?? "No deck added"
         return cell
     }
@@ -102,48 +100,19 @@ class DecksViewController: UITableViewController {
         deckArray = realm.objects(Deck.self)
         tableView.reloadData()
     }
-}
-
-//MARK: - Swipe Tableview Methods
-
-extension DecksViewController: SwipeTableViewCellDelegate
-{
     
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
-        
-        guard orientation == .right else { return nil }
-        
-        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
-        
-            if let deckForDeletion = self.deckArray?[indexPath.row]
-            {
-                do{
-                    try self.realm.write {
-                        self.realm.delete(deckForDeletion)
-                    }
-                } catch {
-                    print("Error deleting deck: \(error)")
+    override func updateModel(at indexPath: IndexPath) {
+        if let deckForDeletion = self.deckArray?[indexPath.row]
+        {
+            do{
+                try self.realm.write {
+                    self.realm.delete(deckForDeletion)
                 }
-                
+            } catch {
+                print("Error deleting deck: \(error)")
             }
             
         }
-        
-        deleteAction.image = UIImage(named: "trash")
-        
-        return [deleteAction]
-        
     }
-    
-    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
-        
-        var options = SwipeTableOptions()
-        options.expansionStyle = .destructive
-        options.transitionStyle = .border
-        return options
-        
-    }
-    
-    
-    
 }
+

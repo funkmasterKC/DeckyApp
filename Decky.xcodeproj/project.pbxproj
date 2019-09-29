@@ -15,6 +15,7 @@
 		5FF0281D2340066F00948C79 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF0281C2340066F00948C79 /* Card.swift */; };
 		5FF0282023400ED200948C79 /* DecksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF0281F23400ED200948C79 /* DecksViewController.swift */; };
 		5FF0282223400FC200948C79 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF0282123400FC200948C79 /* Deck.swift */; };
+		5FF028242340695E00948C79 /* SwipeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF028232340695E00948C79 /* SwipeTableViewController.swift */; };
 		9C9AD10725D386A9D92FC818 /* Pods_Decky.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C560E4208AC71FD3D53B3F8 /* Pods_Decky.framework */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +32,7 @@
 		5FF0281C2340066F00948C79 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		5FF0281F23400ED200948C79 /* DecksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecksViewController.swift; sourceTree = "<group>"; };
 		5FF0282123400FC200948C79 /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
+		5FF028232340695E00948C79 /* SwipeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeTableViewController.swift; sourceTree = "<group>"; };
 		B8C1B0966BBE632AD98A527D /* Pods-Decky.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Decky.debug.xcconfig"; path = "Target Support Files/Pods-Decky/Pods-Decky.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -92,6 +94,7 @@
 			children = (
 				5FF0280A233FC63C00948C79 /* CardsViewController.swift */,
 				5FF0281F23400ED200948C79 /* DecksViewController.swift */,
+				5FF028232340695E00948C79 /* SwipeTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -240,6 +243,7 @@
 				5FF0282023400ED200948C79 /* DecksViewController.swift in Sources */,
 				5FF0282223400FC200948C79 /* Deck.swift in Sources */,
 				5FF0281D2340066F00948C79 /* Card.swift in Sources */,
+				5FF028242340695E00948C79 /* SwipeTableViewController.swift in Sources */,
 				5FF02809233FC63C00948C79 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
