@@ -13,5 +13,6 @@ class Card: Object{
     
     @objc dynamic var name: String = ""
     @objc dynamic var done: Bool = false
+    var parentDeck = LinkingObjects(fromType: Deck.self, property: "cards")
     
 }

@@ -12,4 +12,5 @@ import RealmSwift
 class Deck: Object {
     
     @objc dynamic var name: String = ""
+    let cards = List<Card>()
 }

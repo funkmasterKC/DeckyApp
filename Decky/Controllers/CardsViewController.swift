@@ -14,11 +14,17 @@ class CardsViewController: UITableViewController {
     let realm = try! Realm()
     
     var cardArray: Results<Card>?
+    
+    var selectedDeck: Deck?{
+        didSet{
+            load()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        load()
+        //load()
     }
 
 
@@ -26,7 +32,16 @@ class CardsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = cardArray?[indexPath.row].name ?? "No cards added"
+        
+        if let card = cardArray?[indexPath.row]
+        {
+            cell.textLabel?.text = card.name
+            cell.accessoryType = card.done ? .checkmark : .none
+        }
+        else
+        {
+            cell.textLabel?.text = "No cards added"
+        }
         return cell
     }
     
@@ -34,21 +49,28 @@ class CardsViewController: UITableViewController {
         return cardArray?.count ?? 1
     }
     
-    //MARK: - Tableview Delegate Methods
+    //MARK: - Tableview Delegate Methods (U = UPDATE)
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
-            tableView.cellForRow(at: indexPath)?.accessoryType = .none
-        } else {
-            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+        if let card = cardArray?[indexPath.row]
+        {
+            do{
+                try realm.write {
+                    card.done = !card.done
+                }
+            } catch{
+                print("Error saving done status: \(error)")
+            }
         }
+        
+        tableView.reloadData()
         
         tableView.deselectRow(at: indexPath, animated: true)
         
     }
     
     
-    //MARK: - Add cards
+    //MARK: - Add cards (C = CREATE)
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) { //C = CREATE
         
@@ -58,10 +80,23 @@ class CardsViewController: UITableViewController {
         
         let action = UIAlertAction(title: "Add card", style: .default) { (action) in
             
-            let newCard = Card()
-            newCard.name = textField.text!
-            self.save(card: newCard)
+//            let newCard = Card()
+//            newCard.name = textField.text!
+//            self.save(card: newCard)
             
+            if let currentDeck = self.selectedDeck
+            {
+                do{
+                    try self.realm.write {
+                        let newCard = Card()
+                        newCard.name = textField.text!
+                        currentDeck.cards.append(newCard)
+                    }
+                } catch{
+                    print("Error saving new card: \(error)")
+                }
+            }
+            self.tableView.reloadData()
             
         }
         
@@ -78,24 +113,50 @@ class CardsViewController: UITableViewController {
     
     //MARK: - Saving and Loading data
     
-    func save(card: Card)
+//    func save(card: Card)
+//    {
+//        do{
+//            try realm.write {
+//                realm.add(card)
+//            }
+//        } catch{
+//            print("Error saving card: \(error)")
+//        }
+//
+//        tableView.reloadData()
+//    }
+    
+    func load() // (R = READ)
     {
-        do{
-            try realm.write {
-                realm.add(card)
-            }
-        } catch{
-            print("Error saving card: \(error)")
-        }
         
+        cardArray = selectedDeck?.cards.sorted(byKeyPath: "name", ascending: true)
         tableView.reloadData()
     }
     
-    func load()
-    {
-        cardArray = realm.objects(Card.self)
+}
+
+extension CardsViewController: UISearchBarDelegate{
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        cardArray = cardArray?.filter("name CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "name", ascending: true)
         tableView.reloadData()
+        
     }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        if searchBar.text?.count == 0
+        {
+            load()
+            
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+        }
+        
+    }
+    
     
 }
 
