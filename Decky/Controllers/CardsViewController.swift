@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
 class CardsViewController: SwipeTableViewController {
     
@@ -24,7 +25,7 @@ class CardsViewController: SwipeTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+        tableView.separatorStyle = .none
     }
 
 
@@ -37,6 +38,12 @@ class CardsViewController: SwipeTableViewController {
         {
             cell.textLabel?.text = card.name
             cell.accessoryType = card.done ? .checkmark : .none
+            
+            if let color = FlatSkyBlue().darken(byPercentage: CGFloat(indexPath.row) / CGFloat(cardArray!.count)){
+                
+                cell.backgroundColor = color
+                cell.textLabel?.textColor = ContrastColorOf(color, returnFlat: true)
+            }
         }
         else
         {
