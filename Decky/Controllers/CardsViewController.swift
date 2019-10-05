@@ -39,15 +39,15 @@ class CardsViewController: SwipeTableViewController {
             cell.textLabel?.text = card.name
             cell.accessoryType = card.done ? .checkmark : .none
             
-            if let color = FlatSkyBlue().darken(byPercentage: CGFloat(indexPath.row) / CGFloat(cardArray!.count)){
-                
+            if let color = UIColor(hexString: (cardArray?[indexPath.row].hexCode)!)
+            {
                 cell.backgroundColor = color
                 cell.textLabel?.textColor = ContrastColorOf(color, returnFlat: true)
             }
-        }
-        else
-        {
-            cell.textLabel?.text = "No cards added"
+            else
+            {
+                cell.textLabel?.text = "No cards added"
+            }
         }
         return cell
     }
@@ -73,7 +73,6 @@ class CardsViewController: SwipeTableViewController {
         tableView.reloadData()
         
         tableView.deselectRow(at: indexPath, animated: true)
-        
     }
     
     
@@ -85,22 +84,22 @@ class CardsViewController: SwipeTableViewController {
         
         let alert = UIAlertController(title: "Add a new card", message: "", preferredStyle: .alert)
         
-        let action = UIAlertAction(title: "Add card", style: .default) { (action) in
-            
-            if let currentDeck = self.selectedDeck
-            {
-                do{
-                    try self.realm.write {
-                        let newCard = Card()
-                        newCard.name = textField.text!
-                        currentDeck.cards.append(newCard)
-                    }
-                } catch{
-                    print("Error saving new card: \(error)")
-                }
-            }
-            self.tableView.reloadData()
-            
+        let addMonster = UIAlertAction(title: "Add Monster", style: .default) { (action) in
+            let newCard = Card()
+            self.addMonsterCard(textfield: textField, addNewCard: newCard)
+            self.addProperties(textField: textField, addNewCard: newCard)
+        }
+        
+        let addMagic = UIAlertAction(title: "Add Magic", style: .default) { (action) in
+            let newCard = Card()
+            self.addMagicCard(textField: textField, addNewCard: newCard)
+            self.addProperties(textField: textField, addNewCard: newCard)
+        }
+        
+        let addTrap = UIAlertAction(title: "Add Trap", style: .default) { (action) in
+            let newCard = Card()
+            self.addTrapCard(textfield: textField, addNewCard: newCard)
+            self.addProperties(textField: textField, addNewCard: newCard)
         }
         
         let cancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)
@@ -109,11 +108,48 @@ class CardsViewController: SwipeTableViewController {
             alertTextField.placeholder = "Create a new card"
             textField = alertTextField
         }
-        
-        alert.addAction(action)
+
+        alert.addAction(addMonster)
+        alert.addAction(addMagic)
+        alert.addAction(addTrap)
         alert.addAction(cancel)
         
         present(alert, animated: true, completion: nil)
+    }
+    
+    func addProperties(textField: UITextField, addNewCard: Card)
+    {
+        if let currentDeck = self.selectedDeck
+        {
+            do{
+                try self.realm.write {
+                    let newCard = addNewCard
+                    newCard.name = textField.text!
+                    currentDeck.cards.append(newCard)
+                }
+            } catch{
+                print("Error saving new card: \(error)")
+            }
+        }
+        self.tableView.reloadData()
+    }
+    
+    func addMonsterCard(textfield: UITextField, addNewCard: Card)
+    {
+        addNewCard.monster = true
+        addNewCard.hexCode = UIColor.flatYellow.hexValue()
+    }
+    
+    func addMagicCard(textField: UITextField, addNewCard: Card)
+    {
+        addNewCard.magic = true
+        addNewCard.hexCode = UIColor.flatSkyBlue.hexValue()
+    }
+    
+    func addTrapCard(textfield: UITextField, addNewCard: Card)
+    {
+        addNewCard.trap = true
+        addNewCard.hexCode = UIColor.flatMagenta.hexValue()
     }
     
     
