@@ -74,12 +74,15 @@ class DecksViewController: SwipeTableViewController {
             
         }
         
+        let cancel = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)
+        
         alert.addTextField { (alertTextField) in
             alertTextField.placeholder = "Create a new deck"
             textField = alertTextField
         }
         
         alert.addAction(action)
+        alert.addAction(cancel)
         
         present(alert, animated: true, completion: nil)
         
